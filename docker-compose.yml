@@ -1,0 +1,40 @@
+version: '3.3'
+services:
+  nextcloud:
+    build: .
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-nextcloud}
+      MYSQL_USER: ${MYSQL_USER:-nextcloud}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-nextcloud}
+      MYSQL_HOST: ${MYSQL_HOST:-mysql}
+      NEXTCLOUD_ADMIN_USER: ${NEXTCLOUD_ADMIN_USER:-admin}
+      NEXTCLOUD_ADMIN_PASSWORD: ${NEXTCLOUD_ADMIN_PASSWORD:-admin}
+    image: nextcloud
+    ports:
+      - 8000:80
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html
+      - apps:/var/www/html/custom_apps
+      - config:/var/www/html/config
+      - data:/var/www/html/data
+      - theme:/var/www/html/themes/custom
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-nextcloud}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-nextcloud}
+      MYSQL_USER: ${MYSQL_USER:-nextcloud}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-nextcloud}
+    restart: always
+    volumes:
+      - mysql:/var/lib/mysql
+volumes:
+  mysql:
+  nextcloud:
+  apps:
+  config:
+  data:
+  theme:
