@@ -1,0 +1,23 @@
+{
+  "name": "Nextcloud",
+  "description": "Nextcloud hosted on Heroku",
+  "repository": "https://github.com/amancevice/nextcloud-heroku",
+  "keywords": [
+    "caldav",
+    "carddav",
+    "cloud",
+    "nextcloud",
+    "php"
+  ],
+  "addons": [
+    {
+      "plan": "jawsdb:kitefin",
+      "as": "JAWSDB"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-php"
+    }
+  ]
+}
